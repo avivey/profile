@@ -1,0 +1,19 @@
+alias g=grep
+alias c=cat
+
+alias less='less -r'
+alias tree='tree -AC'
+
+alias cc='pygmentize'
+function show() {
+  cc $* | grep -n '' | less
+}
+
+alias ..='cd ..'
+alias cd..='cd ..'
+
+alias br='git branch'
+alias st='git status'
+alias f='git fetch'
+alias l='git l'
+alias r='git rebase master'
