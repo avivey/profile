@@ -1,0 +1,8 @@
+REGEDIT4
+
+[HKEY_CLASSES_ROOT\editor]
+@="URL:editor Protocol"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\editor\shell\open\command]
+@="wscript \"C:\\profile\\win\\editor.wsf\" \"%1\""

@@ -1,0 +1,36 @@
+<job><script language=JScript>
+// url is editor://open/?repo=%r&file=%f&line=%l
+// %f ==unix filename
+
+
+var editor = '"C:/Program Files (x86)/Notepad++/notepad++.exe" -n%line% %file%';
+
+var url = WScript.Arguments(0);
+var match = /^editor:\/\/open\/\?repo=(.+)&file=(.+)&line=(.+)$/.exec(url);
+
+if (match) {
+  var repo = decodeURIComponent(match[1]);
+
+  var base = "";
+  if (repo == "P") {
+    base = "v:/code/phabricator/";
+  } else {
+    WScript.Echo("Unknown repo " + repo);
+  }
+
+  var file = decodeURIComponent(match[2]);
+  file = file.replace(/\+/g, ' ');
+  file = base + file;
+
+  var command = editor.replace(/%file%/g, file);
+  command = command.replace(/%line%/g, match[3]);
+
+  // WScript.Echo(command);
+  var shell = new ActiveXObject("WScript.Shell");
+  shell.Exec(command);
+} else {
+  WScript.Echo("bad URL: " + url);
+}
+
+
+ </script></job>
