@@ -1,0 +1,12 @@
+[alias]
+  st = status
+  br = branch
+  co = checkout
+  ci = commit
+  l = log --decorate --oneline master~2..
+  ll = log --decorate --oneline -3
+  files = log --name-status --oneline --decorate master..
+
+
+[color]
+	ui = auto
