@@ -12,8 +12,8 @@ function show() {
 alias ..='cd ..'
 alias cd..='cd ..'
 
-alias br='git branch'
-alias st='git status'
+alias br='git br'
+alias st='git st'
 alias f='git fetch'
 alias l='git l'
 alias r='git rebase master'
