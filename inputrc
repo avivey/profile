@@ -1,0 +1,3 @@
+# putty. see http://unix.stackexchange.com/questions/10806/how-to-change-previous-next-word-shortcut-in-bash
+"\eOC": forward-word
+"\eOD": backward-word
