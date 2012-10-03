@@ -3,6 +3,7 @@
   br = branch -v
   co = checkout
   ci = commit
+  r = rebase master
   l = log --decorate --oneline master~2..
   ll = log --decorate --oneline -3
   files = log --name-status --oneline --decorate master..
