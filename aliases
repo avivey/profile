@@ -4,7 +4,7 @@ alias c=cat
 alias less='less -r'
 alias tree='tree -AC'
 
-alias cc='pygmentize'
+alias cc='pygmentize -f256 -Ostyle=vs'
 function show() {
   cc $* | grep -n '' | less
 }
