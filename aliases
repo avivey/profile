@@ -10,6 +10,8 @@ function show() {
   cc $* | grep -n '' | less
 }
 
+alias scp='scp -C'
+
 alias ..='cd ..'
 alias cd..='cd ..'
 
