@@ -3,6 +3,7 @@ alias c=cat
 
 alias less='less -r'
 alias tree='tree -AC'
+alias json='python -m json.tool'
 
 alias cc='pygmentize -f256 -Ostyle=vs'
 function show() {
