@@ -88,11 +88,30 @@ alias la='ls -A'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+if ! shopt -oq posix; then
+	if [ -f /etc/bash_completion ]; then
+	    . /etc/bash_completion
+	fi
+
+  if [ -d ~/devtools/arcanist/resources ]; then
+    . ~/devtools/arcanist/resources/shell/bash-completion
+  elif [ -d ~/code/arcanist/resources ]; then
+    . ~/code/arcanist/resources/shell/bash-completion
+  fi
+
+  if [ -d ~/devtools/git/contrib/completion ]; then
+    . ~/devtools/git/contrib/completion/git-completion.bash
+    . ~/devtools/git/contrib/completion/git-prompt.sh
+  elif [ -d ~/code/git/contrib/completion ]; then
+    . ~/code/git/contrib/completion/git-completion.bash
+    . ~/code/git/contrib/completion/git-prompt.sh
+  fi
 fi
 
 export EDITOR=/usr/bin/nano
 export INPUTRC=~/profile/inputrc
 . ~/profile/aliases
 
+if [ -f ~/bash_local ]; then
+  . ~/bash_local
+fi
