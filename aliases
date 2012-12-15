@@ -2,7 +2,7 @@ alias g=grep
 alias c=cat
 
 alias less='less -r'
-alias tree='tree -AC'
+alias tree='tree'
 alias json='python -m json.tool'
 
 alias cc='pygmentize -f256 -Ostyle=vs'

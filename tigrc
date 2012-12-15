@@ -1,2 +1,3 @@
 set show-date = no
 set author-width = 7
+set line-graphics = utf-8
