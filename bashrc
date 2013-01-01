@@ -108,6 +108,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export BLOCKSIZE=human-readable
 export EDITOR=/usr/bin/nano
 export INPUTRC=~/profile/inputrc
 . ~/profile/aliases
