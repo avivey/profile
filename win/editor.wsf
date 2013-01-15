@@ -17,7 +17,8 @@ if (match) {
   } else if (repo == "ARC") {
     base = "v:/code/arcanist/";
   } else {
-    WScript.Echo("Unknown repo " + repo);
+    base = "v:/by-repo/" + repo + "/";
+  //    WScript.Echo("Unknown repo " + repo);
   }
 
   var file = decodeURIComponent(match[2]);
