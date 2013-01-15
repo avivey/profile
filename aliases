@@ -1,5 +1,6 @@
 alias g=grep
 alias c=cat
+alias m=make
 
 alias less='less -r'
 alias tree='tree'
