@@ -1,32 +1,52 @@
 <job><script language=JScript>
 // url is editor://open/?repo=%r&file=%f&line=%l
+// repo may be replaced with root (Drive root)
 // %f ==unix filename
 
 
 var editor = '"C:/Program Files (x86)/Notepad++/notepad++.exe" -n%line% %file%';
+var repo = false;
+var root = false;
+var file = false;
+var line = 1;
 
 var url = WScript.Arguments(0);
-var match = /^editor:\/\/open\/\?repo=(.+)&file=(.+)&line=(.+)$/.exec(url);
+var match = /^editor:\/\/open\/\?(.*)$/.exec(url);
+var query = match[1].split("&");
+for (var i=0; i<query.length; i++) {
+	var param = query[i].split("=");
+	var arg = param[0];
+	var value = decodeURIComponent(param[1]);
+	switch(arg) {
+		case "repo":
+			repo = value;
+			break;
+		case "root":
+			root = value;
+			break;
+		case "file":
+			file = value;
+			break;
+		case "line":
+			line = value;
+			break;
+	}
+}
 
-if (match) {
-  var repo = decodeURIComponent(match[1]);
+var base = "";
 
-  var base = "";
-  if (repo == "P") {
-    base = "v:/code/phabricator/";
-  } else if (repo == "ARC") {
-    base = "v:/code/arcanist/";
-  } else {
-    base = "v:/by-repo/" + repo + "/";
-  //    WScript.Echo("Unknown repo " + repo);
-  }
+if (repo) {
+	base = "v:/by-repo/" + repo + "/";
+} else if (root) {
+	base = root + ":/";
+}
 
-  var file = decodeURIComponent(match[2]);
+if (file && base) {
   file = file.replace(/\+/g, ' ');
   file = base + file;
 
   var command = editor.replace(/%file%/g, file);
-  command = command.replace(/%line%/g, match[3]);
+  command = command.replace(/%line%/g, line);
 
   // WScript.Echo(command);
   var shell = new ActiveXObject("WScript.Shell");
