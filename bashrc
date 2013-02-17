@@ -108,6 +108,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export PATH=$PATH:~/profile/bin
+export BROWSER=send-url.sh
+
 export BLOCKSIZE=human-readable
 export EDITOR=/usr/bin/nano
 export INPUTRC=~/profile/inputrc
