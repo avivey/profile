@@ -5,7 +5,7 @@
   ci = commit
   unstash = stash pop
   r = rebase master
-  l = log --decorate --oneline master~2..
+  l = log --decorate --oneline --first-parent master~2..
   ll = log --decorate --oneline -3
   files = log --name-status --oneline --decorate master..
 
