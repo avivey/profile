@@ -106,6 +106,12 @@ if ! shopt -oq posix; then
     . ~/code/git/contrib/completion/git-completion.bash
     . ~/code/git/contrib/completion/git-prompt.sh
   fi
+
+  if [ -d ~/devtools/tig/contrib ]; then
+    . ~/devtools/tig/contrib/tig-completion.bash
+  elif [ -d ~/code/git/contrib ]; then
+    . ~/code/tig/contrib/tig-completion.bash
+  fi
 fi
 
 export PATH=$PATH:~/profile/bin
