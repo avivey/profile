@@ -7,10 +7,17 @@
   r = rebase master
   l = log --decorate --oneline --first-parent master~2..
   ll = log --decorate --oneline -3
+  llog = log --decorate --oneline
   files = log --name-status --oneline --decorate master..
 
 
 [color]
 	ui = auto
+
+[color "branch"]
+  current = red
+  local = bold
+  remote = green
+
 [push]
         default = simple

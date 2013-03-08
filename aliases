@@ -20,3 +20,9 @@ alias br='git br'
 alias st='git st'
 function f() { git fetch $* ; git br; }
 alias l='git l'
+alias blame='tig blame'
+
+function highlight() {
+  egrep --color "$*|"
+}
+alias h=highlight
