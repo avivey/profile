@@ -18,7 +18,7 @@ alias cd..='cd ..'
 
 alias br='git br'
 alias st='git st'
-function f() { git fetch $* ; git br; }
+function f() { git fetch -q $* ; git br; }
 alias l='git l'
 alias blame='tig blame'
 

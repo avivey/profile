@@ -20,4 +20,4 @@
   remote = green
 
 [push]
-        default = simple
+        default = upstream
