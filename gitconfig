@@ -5,11 +5,15 @@
   ci = commit
   unstash = stash pop
   r = rebase master
-  l = log --decorate --oneline --first-parent master~2..
-  ll = log --decorate --oneline -3
-  llog = log --decorate --oneline
+  g = grep
+
+  l = log --oneline --first-parent master~2..
+  ll = log --oneline -3
+  llog = log --oneline
   files = log --name-status --oneline --decorate master..
 
+[log]
+  decorate = short
 
 [color]
 	ui = auto
@@ -19,5 +23,11 @@
   local = bold
   remote = green
 
+[tig]
+  show-date = relative
+  author-width = 7
+  line-graphics = utf-8
+
+
 [push]
-        default = upstream
+  default = upstream

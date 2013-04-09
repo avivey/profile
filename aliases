@@ -2,6 +2,8 @@ alias g=grep
 alias c=cat
 alias m=make
 
+alias e=npp
+
 alias less='less -r'
 alias tree='tree'
 alias json='python -m json.tool'
