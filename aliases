@@ -2,7 +2,7 @@ alias g=grep
 alias c=cat
 alias m=make
 
-alias e=npp
+alias clean='mvn clean -q'
 
 alias less='less -r'
 alias tree='tree'

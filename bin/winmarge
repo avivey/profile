@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ -z $MOUNT_ROOT ]; then
+	echo "No MOUNT_ROOT defined!"  >&2
+	exit 1
+fi
+if [ -z $1 ]; then
+	exit 1
+fi
+
+relative_name=`readlink -f $1 | sed 's_'$HOME'__'  `
+send-url.sh "compare://open/?root=$MOUNT_ROOT&file=$relative_name"
