@@ -20,9 +20,11 @@ alias cd..='cd ..'
 
 alias br='git br'
 alias st='git st'
-function f() { git fetch -q $* ; git br; }
+function f() { git fetch -q $* ; git br -v; }
 alias l='git l'
+alias gg='git grep'
 alias blame='tig blame'
+alias rebase='git rebase'
 
 function highlight() {
   egrep --color "$*|"
