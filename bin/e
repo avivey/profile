@@ -4,10 +4,10 @@ if [ -z $MOUNT_ROOT ]; then
 	echo "No MOUNT_ROOT defined!"  >&2
 	exit 1
 fi
-if [ -z $1 ]; then
-	exit 1
-fi
 
 home_fixed=`readlink -f $HOME`
-relative_name=`readlink -f $1 | sed 's_'$home_fixed'__'  `
-send-url.sh "editor://open/?root=$MOUNT_ROOT&file=$relative_name"
+
+for file in $*; do
+  relative_name=`readlink -f $file | sed 's_'$home_fixed'__' `
+  send-url.sh "editor://open/?root=$MOUNT_ROOT&file=$relative_name"
+done
