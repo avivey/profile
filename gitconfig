@@ -10,7 +10,7 @@
   l = log --oneline --first-parent master~2..
   ll = log --oneline -3
   llog = log --oneline
-  files = log --name-status --oneline --decorate master..
+  files = log --name-status --oneline master..
 
 [log]
   decorate = short

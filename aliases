@@ -1,10 +1,11 @@
 alias g=grep
 alias c=cat
 alias m=make
+alias x=xargs
 
 alias clean='mvn clean -q'
 
-alias less='less -r'
+alias less='less -R'
 alias tree='tree'
 alias json='python -m json.tool'
 
