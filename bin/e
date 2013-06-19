@@ -8,6 +8,6 @@ fi
 home_fixed=`readlink -f $HOME`
 
 for file in $*; do
-  relative_name=`readlink -f $file | sed 's_'$home_fixed'__' `
+  relative_name=`readlink -f $file | sed 's_'$home_fixed'__'  | sed 's,/var/groupon/aviv/,,' `
   send-url.sh "editor://open/?root=$MOUNT_ROOT&file=$relative_name"
 done
