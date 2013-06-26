@@ -23,6 +23,9 @@
   local = bold
   remote = green
 
+[color "diff"]
+  meta = blue
+
 [tig]
   show-date = relative
   author-width = 7
