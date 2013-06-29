@@ -23,7 +23,7 @@ alias br='git br'
 alias st='git st'
 function f() { git fetch -q $* ; git br -v; }
 alias l='git l'
-alias gg='git grep'
+alias gg='git grep -n'
 function gge() { git grep -l "$@" | xargs e; }
 alias blame='tig blame'
 alias rebase='git rebase'
