@@ -7,7 +7,14 @@ fi
 
 home_fixed=`readlink -f $HOME`
 
-for file in $*; do
+for argument in $*; do
+  file=`echo $argument | cut -f1 -d:`
+  line=`echo $argument | grep -o ':[^:]*$' | cut -c2-`
   relative_name=`readlink -f $file | sed 's_'$home_fixed'__'  | sed 's,/var/groupon/aviv/,,' `
-  send-url.sh "editor://open/?root=$MOUNT_ROOT&file=$relative_name"
+  FILE_ARG="&file=$relative_name"
+  LINE_ARG=
+  if [ -n "$line" ]; then
+    LINE_ARG="&line=$line"
+  fi
+  sensible-browser "editor://open/?root=$MOUNT_ROOT$FILE_ARG$LINE_ARG"
 done

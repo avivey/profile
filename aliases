@@ -24,7 +24,7 @@ alias st='git st'
 function f() { git fetch -q $* ; git br -v; }
 alias l='git l'
 alias gg='git grep -n'
-function gge() { git grep -l "$@" | xargs e; }
+function gge() { git grep -n "$@" | grep -o '^[^:]*:[0-9]*' | xargs e; }
 alias blame='tig blame'
 alias rebase='git rebase'
 
