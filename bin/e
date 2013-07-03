@@ -16,5 +16,5 @@ for argument in $*; do
   if [ -n "$line" ]; then
     LINE_ARG="&line=$line"
   fi
-  sensible-browser "editor://open/?root=$MOUNT_ROOT$FILE_ARG$LINE_ARG"
+  send-url.sh "editor://open/?root=$MOUNT_ROOT$FILE_ARG$LINE_ARG"
 done
