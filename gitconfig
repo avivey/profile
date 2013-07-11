@@ -31,6 +31,8 @@
   author-width = 7
   line-graphics = utf-8
 
+[diff]
+  noprefix
 
 [push]
   default = upstream
