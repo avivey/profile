@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ -z $MOUNT_ROOT ]; then
+	echo "No MOUNT_ROOT defined!"  >&2
+	exit 1
+fi
+
+home_fixed=`readlink -f $HOME`
+
+for argument in $*; do
+  file=`echo $argument | cut -f1 -d:`
+  relative_name=`readlink -f $file | sed 's_'$home_fixed'__'  | sed 's,/var/groupon/aviv/,,' `
+  FILE_ARG="$relative_name"
+  send-url.sh "file:///$MOUNT_ROOT:$FILE_ARG"
+done
