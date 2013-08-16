@@ -10,7 +10,12 @@ home_fixed=`readlink -f $HOME`
 for argument in $*; do
   file=`echo $argument | cut -f1 -d:`
   line=`echo $argument | grep -o ':[^:]*$' | cut -c2-`
-  relative_name=`readlink -f $file | sed 's_'$home_fixed'__'  | sed 's,/var/groupon/aviv/,,' `
+
+  filename=`readlink -f $file`
+  if [  -x $HOME/bin/make-filename-relative ]; then
+    filename=`$HOME/bin/make-filename-relative "$filename"`
+  fi
+  relative_name=`echo "$filename" | sed 's_'$home_fixed'__' `
   FILE_ARG="&file=$relative_name"
   LINE_ARG=
   if [ -n "$line" ]; then
