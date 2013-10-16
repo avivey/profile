@@ -2,6 +2,7 @@ alias g=grep
 alias c=cat
 alias m=make
 alias x=xargs
+alias b='arc browse'
 
 alias clean='mvn clean -q'
 
