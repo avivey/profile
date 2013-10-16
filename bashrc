@@ -116,6 +116,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+#end .pyc files.
+export PYTHONDONTWRITEBYTECODE=1
+
 export PATH=$PATH:~/profile/bin
 export BROWSER=send-url.sh
 
