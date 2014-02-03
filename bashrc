@@ -102,22 +102,15 @@ if ! shopt -oq posix; then
 
   if [ -d ~/devtools/arcanist/resources ]; then
     . ~/devtools/arcanist/resources/shell/bash-completion
-  elif [ -d ~/code/arcanist/resources ]; then
-    . ~/code/arcanist/resources/shell/bash-completion
   fi
 
   if [ -d ~/devtools/git/contrib/completion ]; then
     . ~/devtools/git/contrib/completion/git-completion.bash
     . ~/devtools/git/contrib/completion/git-prompt.sh
-  elif [ -d ~/code/git/contrib/completion ]; then
-    . ~/code/git/contrib/completion/git-completion.bash
-    . ~/code/git/contrib/completion/git-prompt.sh
   fi
 
   if [ -d ~/devtools/tig/contrib ]; then
     . ~/devtools/tig/contrib/tig-completion.bash
-  elif [ -d ~/code/git/contrib ]; then
-    . ~/code/tig/contrib/tig-completion.bash
   fi
 fi
 
