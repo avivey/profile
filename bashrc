@@ -120,7 +120,7 @@ export PYTHONDONTWRITEBYTECODE=1
 export PATH=$PATH:~/profile/bin
 export BROWSER=send-url.sh
 
-export BLOCKSIZE=human-readable
+export BLOCK_SIZE=human-readable
 export EDITOR=/usr/bin/nano
 export INPUTRC=~/profile/inputrc
 . ~/profile/aliases
