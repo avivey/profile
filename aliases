@@ -7,7 +7,6 @@ alias b='arc browse'
 alias clean='mvn clean -q'
 
 alias less='less -R'
-alias tree='tree -A'
 alias json='python -m json.tool'
 
 alias cc='pygmentize -f256 -Ostyle=vs -g'
