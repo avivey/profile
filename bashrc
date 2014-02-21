@@ -58,7 +58,7 @@ fi
 declare -F __git_ps1 >/dev/null || function __git_ps1() { true; }
 if [ "$color_prompt" = yes ]; then
     PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[0;31m\]$(__git_ps1 " %s")\[\033[00m\]\$ '
-    MYSQL_PS1=$'\033[0;31mmysql \033[1;32m\h \033[1;34m\d\033[00m> '
+    MYSQL_PS1=$'\001\033[0;31m\002mysql \001\033[1;32m\002\h \001\033[1;34m\002\d\001\033[00m\002> '
 else
     PS1='\u@\h:\w$(__git_ps1)\$ '
     MYSQL_PS1=$'mysql \h \d> '
