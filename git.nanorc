@@ -1,0 +1,53 @@
+# This file is mostly from https://gist.githubusercontent.com/koraktor/525257/raw/b34266b760e8f2dda99188c1df1ee91e3dfedc6e/git.nanorc
+syntax "git commit/tag messages" "COMMIT_EDITMSG|TAG_EDITMSG"
+
+# Commit message
+# color white ".*"
+
+# Subject line (This is pretty weird, but it works at least for OS X' nano 2.0.6)
+color brightcyan start="^." end=".$"
+
+# Comments
+color brightblack "^#.*"
+
+# Files changes
+color white       "#[[:space:]](deleted|modified|new file|renamed):[[:space:]].*"
+color red         "#[[:space:]]deleted:"
+color green       "#[[:space:]]modified:"
+color brightgreen "#[[:space:]]new file:"
+color brightblue  "#[[:space:]]renamed:"
+
+# Recolor hash symbols
+color brightblack "#"
+
+# Trailing spaces
+color ,red "[[:space:]]+$"
+
+# This syntax format is used for interactive rebasing
+syntax "git rebase todo" "git-rebase-todo"
+
+# Default
+# color white ".*"
+
+# Comments
+color brightblack "^#.*"
+
+# Commit IDs
+color brightcyan "[0-9a-f]{7,40}"
+
+# Rebase commands
+color green       "^(e|edit) [0-9a-f]{7,40}"
+color green       "^#  (e, edit)"
+color brightgreen "^(f|fixup) [0-9a-f]{7,40}"
+color brightgreen "^#  (f, fixup)"
+color cyan "^(p|pick) [0-9a-f]{7,40}"
+color cyan "^#  (p, pick)"
+color blue        "^(r|reword) [0-9a-f]{7,40}"
+color blue        "^#  (r, reword)"
+color brightred   "^(s|squash) [0-9a-f]{7,40}"
+color brightred   "^#  (s, squash)"
+color brightyellow      "^(x|exec) .*$"
+color brightyellow      "^#  (x, exec)"
+
+# Recolor hash symbols
+color brightblack "#"
