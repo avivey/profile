@@ -29,7 +29,7 @@
 [tig]
   show-date = relative
   author-width = 7
-  line-graphics = default
+  line-graphics = utf-8
 
 [diff]
   noprefix
