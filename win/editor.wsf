@@ -7,7 +7,7 @@
 var editor = '"C:/Program Files (x86)/Notepad++/notepad++.exe" -n%line% %file%';
 var repo = false;
 var root = false;
-var file = false;
+var files = false;
 var line = 1;
 
 var url = WScript.Arguments(0);
@@ -17,7 +17,7 @@ for (var i=0; i<query.length; i++) {
 	var param = query[i].split("=");
 	var arg = param[0];
 	var value = decodeURIComponent(param[1]);
-	switch(arg) {
+	switch (arg) {
 		case "repo":
 			repo = value;
 			break;
@@ -25,14 +25,13 @@ for (var i=0; i<query.length; i++) {
 			root = value;
 			break;
 		case "file":
-			file = value;
+			files = value;
 			break;
 		case "line":
 			line = value;
 			break;
 	}
 }
-
 var base = "";
 
 if (repo) {
@@ -41,7 +40,14 @@ if (repo) {
 	base = root + ":/";
 }
 
-if (file && base) {
+if (!files || !base) {
+  WScript.Echo("bad URL: " + url);
+  WSH.Quit();
+}
+
+files = files.split(" ");
+for (var i=0; i<files.length; i++) {
+  file = files[i];
   file = file.replace(/\+/g, ' ');
   file = base + file;
 
@@ -51,8 +57,6 @@ if (file && base) {
   // WScript.Echo(command);
   var shell = new ActiveXObject("WScript.Shell");
   shell.Exec(command);
-} else {
-  WScript.Echo("bad URL: " + url);
 }
 
 
