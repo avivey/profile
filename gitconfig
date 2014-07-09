@@ -11,6 +11,7 @@
   ll = log --oneline -3
   llog = log --oneline
   files = log --name-status --oneline origin/master..
+  filesdiff = diff --name-only origin/master
 
 [log]
   decorate = short

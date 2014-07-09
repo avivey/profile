@@ -7,11 +7,11 @@ fi
 
 home_fixed=`readlink -f $HOME`
 
-for argument in $*; do
+for argument in "$@"; do
   file=`echo $argument | cut -f1 -d:`
   line=`echo $argument | grep -o ':[^:]*$' | cut -c2-`
 
-  filename=`readlink -f $file`
+  filename=`readlink -f "$file"`
   if [  -x $HOME/bin/make-filename-relative ]; then
     filename=`$HOME/bin/make-filename-relative "$filename"`
   fi
