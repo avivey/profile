@@ -56,11 +56,21 @@ fi
 
 # in case we can't find it later
 declare -F __git_ps1 >/dev/null || function __git_ps1() { true; }
+
 if [ "$color_prompt" = yes ]; then
-    PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[0;31m\]$(__git_ps1 " %s")\[\033[00m\]\$ '
+    function prompt_command() {
+      local ES=$?
+      if [[ $ES -ne 0 ]]; then
+        local ERRORPROMPT=" \[\033[1;30m\][ $ES ]"
+      fi
+      local GIT=$(__git_ps1 " %s")
+      PS1=$PS1_SET_TITLE'\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[0;31m\]'$GIT$ERRORPROMPT'\[\033[00m\]\$ '
+    }
+    PROMPT_COMMAND=prompt_command
+
     MYSQL_PS1=$'\001\033[0;31m\002mysql \001\033[1;32m\002\h \001\033[1;34m\002\d\001\033[00m\002> '
 else
-    PS1='\u@\h:\w$(__git_ps1)\$ '
+    PS1=$PS1_SET_TITLE'\u@\h:\w$(__git_ps1)\$ '
     MYSQL_PS1=$'mysql \h \d> '
 fi
 unset color_prompt force_color_prompt
@@ -69,7 +79,7 @@ export MYSQL_PS1
 case "$TERM" in
 # If this is an xterm set the title to user@host:dir
 xterm*|rxvt*)
-    PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+    PS1_SET_TITLE="\[\e]0;\u@\h: \w\a\]"
     MYSQL_PS1=$'\001\e]0;mysql \h:\d\a\002'$MYSQL_PS1
     ;;
 *)
