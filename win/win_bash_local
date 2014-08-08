@@ -1,0 +1,14 @@
+alias ssh=plink
+alias o=start
+alias e=~/bin/e
+unset BROWSER
+unset EDITOR
+
+NEW_PROMPT=$(declare -f prompt_command)
+NEW_PROMPT=${NEW_PROMPT#*\{}
+NEW_PROMPT=${NEW_PROMPT%\}}
+NEW_PROMPT=${NEW_PROMPT/\\w/\\W}
+NEW_PROMPT=${NEW_PROMPT/\\u@/}
+eval "prompt_command() {
+  $NEW_PROMPT
+}"
