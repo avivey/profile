@@ -12,3 +12,7 @@ NEW_PROMPT=${NEW_PROMPT/\\u@/}
 eval "prompt_command() {
   $NEW_PROMPT
 }"
+
+function arc() {
+  ~/devtools/arcanist/bin/arc --ansi $@  | cat
+}
