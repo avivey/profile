@@ -22,6 +22,7 @@ alias cd..='cd ..'
 alias br='git br'
 alias st='git st'
 function f() { git fetch -q $* ; git br; }
+alias fr='f; git rebase'
 alias l='git l'
 alias gg='git grep -n'
 function gge() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs e; }
