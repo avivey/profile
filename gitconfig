@@ -26,14 +26,16 @@
 
 [color "diff"]
   meta = blue
-
-[tig]
-  show-date = relative
-  author-width = 7
-  line-graphics = utf-8
-
 [diff]
   noprefix
 
 [push]
   default = upstream
+
+
+[tig]
+  main-view-date = relative
+  blame-view-date = relative
+  line-graphics = utf-8
+  main-view-author = width=7
+  blame-view-author = width=7
