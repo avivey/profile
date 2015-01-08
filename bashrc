@@ -57,6 +57,11 @@ fi
 # in case we can't find it later
 declare -F __git_ps1 >/dev/null || function __git_ps1() { true; }
 
+if  mysql --version | grep -q readline; then
+  mysql_has_readline=yes
+fi 2>/dev/null
+
+MYSQL_PS1=$'mysql \h \d> '
 if [ "$color_prompt" = yes ]; then
     function prompt_command() {
       local ES=$?
@@ -68,23 +73,27 @@ if [ "$color_prompt" = yes ]; then
     }
     PROMPT_COMMAND=prompt_command
 
-    MYSQL_PS1=$'\001\033[0;31m\002mysql \001\033[1;32m\002\h \001\033[1;34m\002\d\001\033[00m\002> '
+    if [ "$mysql_has_readline" = yes ]; then
+      MYSQL_PS1=$'\001\033[0;31m\002mysql \001\033[1;32m\002\h \001\033[1;34m\002\d\001\033[00m\002> '
+    fi
 else
     PS1=$PS1_SET_TITLE'\u@\h:\w$(__git_ps1)\$ '
-    MYSQL_PS1=$'mysql \h \d> '
 fi
-unset color_prompt force_color_prompt
-export MYSQL_PS1
 
 case "$TERM" in
 # If this is an xterm set the title to user@host:dir
 xterm*|rxvt*)
     PS1_SET_TITLE="\[\e]0;\u@\h: \w\a\]"
-    MYSQL_PS1=$'\001\e]0;mysql \h:\d\a\002'$MYSQL_PS1
+    if [ "$mysql_has_readline" = yes ]; then
+      MYSQL_PS1=$'\001\e]0;mysql \h:\d\a\002'$MYSQL_PS1
+    fi
     ;;
 *)
     ;;
 esac
+
+unset color_prompt force_color_prompt mysql_has_readline
+export MYSQL_PS1
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
