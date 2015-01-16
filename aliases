@@ -26,6 +26,7 @@ alias fr='f && git rebase'
 alias l='git l'
 alias gg='git grep -n'
 function gge() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs e; }
+alias gf='git ls-files'
 alias blame='tig blame'
 alias rebase='git rebase'
 
