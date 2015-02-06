@@ -13,6 +13,10 @@ alias cc='pygmentize -f256 -Ostyle=vs -g'
 function show() {
   cc $* | less -N
 }
+if declare -f _pygmentize > /dev/null;
+then
+  complete -o default -F _pygmentize cc
+fi
 
 alias scp='scp -C'
 
