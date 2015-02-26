@@ -13,6 +13,8 @@
   files = log --name-status --oneline origin/master..
   filesdiff = diff --name-only origin/master
 
+  root = rev-parse --show-toplevel
+
 [log]
   decorate = short
 
