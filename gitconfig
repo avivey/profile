@@ -7,7 +7,7 @@
   r = rebase master
   g = grep
 
-  l = log --oneline --first-parent origin/master~2..
+  l = log --oneline --first-parent origin/HEAD~2..
   ll = log --oneline -3
   llog = log --oneline
   files = log --name-status --oneline origin/master..
