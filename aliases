@@ -1,6 +1,5 @@
 alias g=grep
 alias c=cat
-alias m=make
 alias x=xargs
 alias b='arc browse'
 
@@ -27,7 +26,14 @@ alias br='git br'
 alias st='git st'
 function f() { git fetch -q $* && git br; }
 alias fr='f && git rebase'
-alias l='git l'
+# alias l='git l'
+
+function l() {
+  git rev-parse -q --verify  origin/HEAD > /dev/null &&
+  git l ||
+  git log --oneline --first-parent `git rev-parse --abbrev-ref --symbolic-full-name @{u}`~2..
+}
+
 alias gg='git grep -n'
 function gge() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs e; }
 alias gf='git ls-files'
@@ -50,4 +56,13 @@ alias h=highlight
 
 function gen_passwd() {
   tr -dc _A-Za-z0-9 < /dev/urandom | head -c${1:-10} | xargs
+}
+
+function m() {
+  if [ -x ./make.sh ]
+  then
+    ./make.sh
+  else
+    make
+  fi
 }
