@@ -61,8 +61,8 @@ function gen_passwd() {
 function m() {
   if [ -x ./make.sh ]
   then
-    ./make.sh
+    ./make.sh $@
   else
-    make
+    make $@
   fi
 }

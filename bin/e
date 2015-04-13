@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ -z $MOUNT_ROOT ]; then
 	echo "No MOUNT_ROOT defined!"  >&2
@@ -12,6 +12,12 @@ for argument in "$@"; do
   line=`echo $argument | grep -o ':[^:]*$' | cut -c2-`
 
   filename=`readlink -f "$file"`
+
+  if [[ -z $filename ]]; then
+    echo "file not found: $argument"
+    break;
+  fi
+
   if [  -x $HOME/bin/make-filename-relative ]; then
     filename=`$HOME/bin/make-filename-relative "$filename"`
   fi
