@@ -12,10 +12,8 @@ alias cc='pygmentize -f256 -Ostyle=vs -g'
 function show() {
   cc $* | less -N
 }
-if declare -f _pygmentize > /dev/null;
-then
-  complete -o default -F _pygmentize cc
-fi
+declare -f _pygmentize > /dev/null &&
+  complete -o default -F _pygmentize cc show
 
 alias scp='scp -C'
 
@@ -26,18 +24,23 @@ alias br='git br'
 alias st='git st'
 function f() { git fetch -q $* && git br; }
 alias fr='f && git rebase'
-# alias l='git l'
 
+function git-upstream-or() {
+  git rev-parse --abbrev-ref --symbolic-full-name @{u} 2> /dev/null ||
+    echo $1
+}
 function l() {
-  git rev-parse -q --verify  origin/HEAD > /dev/null &&
-  git l ||
-  git log --oneline --first-parent `git rev-parse --abbrev-ref --symbolic-full-name @{u}`~2..
+  git rev-parse -q --verify origin/HEAD > /dev/null &&
+    git l ||
+    git log --oneline --first-parent `git-upstream-or master`~2..
 }
 
 alias gg='git grep -n'
 function gge() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs e; }
 alias gf='git ls-files'
 alias gfc='git ls-files | xargs ls -d1 --color'
+alias gfg='git ls-files | grep'
+function gfge() { git ls-files | grep "$@" | xargs e; }
 alias blame='tig blame'
 alias rebase='git rebase'
 
@@ -47,7 +50,6 @@ then
   __git_complete f _git_fetch
   __git_complete gg _git_grep
 fi
-
 
 function highlight() {
   egrep --color "$*|"
@@ -65,4 +67,13 @@ function m() {
   else
     make $@
   fi
+}
+if [ -f /usr/share/bash-completion/completions/make ]
+then
+  . /usr/share/bash-completion/completions/make
+  complete -F _make m
+fi
+
+function set-title() {
+  echo -ne "\e]2;$@\007"
 }
