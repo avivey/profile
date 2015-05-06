@@ -7,13 +7,18 @@
   r = rebase master
   g = grep
 
-  l = log --oneline --first-parent origin/HEAD~2..
   ll = log --oneline -3
   llog = log --oneline
-  files = log --name-status --oneline origin/master..
-  filesdiff = diff --name-only origin/master
+  l = ! git llog --first-parent `git my-base`~2..
+  files = ! git log --name-status --oneline `git my-base`..
+  filesdiff = ! git diff --name-only `git my-base`
 
   root = rev-parse --show-toplevel
+
+  my-base = ! git show-ref -q origin/HEAD && echo origin/HEAD                   ||  \
+              git rev-parse --abbrev-ref --symbolic-full-name @{u} 2> /dev/null ||  \
+              git config aviv.base                                              ||  \
+              echo master
 
 [log]
   decorate = short

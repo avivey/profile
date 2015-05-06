@@ -24,16 +24,7 @@ alias br='git br'
 alias st='git st'
 function f() { git fetch -q $* && git br; }
 alias fr='f && git rebase'
-
-function git-upstream-or() {
-  git rev-parse --abbrev-ref --symbolic-full-name @{u} 2> /dev/null ||
-    echo $1
-}
-function l() {
-  git rev-parse -q --verify origin/HEAD > /dev/null &&
-    git l ||
-    git log --oneline --first-parent `git-upstream-or master`~2..
-}
+alias l='git l'
 
 alias gg='git grep -n'
 function gge() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs e; }
