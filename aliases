@@ -3,7 +3,7 @@ alias c=cat
 alias x=xargs
 alias b='arc browse'
 
-alias clean='mvn clean -q'
+alias clean='mvn clean -qq'
 
 alias less='less -R'
 alias json='python -m json.tool'
@@ -33,7 +33,6 @@ alias gfc='git ls-files | xargs ls -d1 --color'
 alias gfg='git ls-files | grep'
 function gfge() { git ls-files | grep "$@" | xargs e; }
 alias blame='tig blame'
-alias rebase='git rebase'
 
 if declare -f __git_complete >/dev/null
 then
@@ -70,4 +69,7 @@ fi
 
 function set-title() {
   echo -ne "\e]2;$@\007"
+}
+function google() {
+  $BROWSER https://www.google.com/search?q=$(python -c "import urllib; print urllib.quote('$*')")
 }
