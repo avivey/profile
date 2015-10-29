@@ -10,6 +10,7 @@ alias json='python -m json.tool'
 
 alias cc='pygmentize -f256 -Ostyle=vs -g'
 function show() {
+  set-title $1
   cc $* | less -N
 }
 declare -f _pygmentize > /dev/null &&
