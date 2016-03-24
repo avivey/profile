@@ -5,13 +5,13 @@
   ci = commit
   unstash = stash pop
   r = rebase master
-  g = grep
 
   ll = log --oneline -3
   llog = log --oneline
   l = ! git llog --first-parent `git my-base`~2..
   files = ! git log --name-status --oneline `git my-base`..
   filesdiff = ! git diff --name-only `git my-base`
+  doc = ! $BROWSER https://git-scm.com/docs/git-$1
 
   root = rev-parse --show-toplevel
 
