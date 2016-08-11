@@ -29,10 +29,12 @@ alias l='git l'
 
 alias gg='git grep -In'
 function gge() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs e; }
+function ggb() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs arc browse; }
 alias gf='git ls-files'
 alias gfc='git ls-files | xargs ls -d1 --color'
 alias gfg='git ls-files | grep'
 function gfge() { git ls-files | grep "$@" | xargs e; }
+function gfgb() { git ls-files | grep "$@" | xargs arc browse; }
 alias blame='tig blame'
 
 if declare -f __git_complete >/dev/null
@@ -62,6 +64,7 @@ function m() {
     make $@
   fi
 }
+
 if [ -f /usr/share/bash-completion/completions/make ]
 then
   . /usr/share/bash-completion/completions/make
