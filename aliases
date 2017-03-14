@@ -75,5 +75,5 @@ function set-title() {
   echo -ne "\e]2;$@\007"
 }
 function google() {
-  $BROWSER https://www.google.com/search?q=$(python -c "import urllib; print urllib.quote('$*')")
+  $BROWSER https://www.google.com/search?q=$(python2 -c "import urllib; print urllib.quote('$*')")
 }
