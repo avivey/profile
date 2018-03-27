@@ -1,0 +1,56 @@
+#! /usr/bin/env python2
+
+# Produces a table of filenames x commits, showing where a file was touched.
+# Useful for rebasing feature branch into reasonable commits.
+# usage:
+# git log --name-status --oneline origin/master..  | $0
+
+# Can also be found at https://secure.phabricator.com/P1998
+
+import fileinput
+
+files = set()
+commits = list()
+
+class Commit(object):
+    def __init__(self, title):
+        self.title = title
+        self.files = dict()
+
+    def addFile(self, filename, status):
+        self.files[filename] = status
+
+curr_commit = None
+for line in fileinput.input():
+    try:
+        if line[0] in '0123456789abcdef':
+            curr_commit = Commit(line)
+            commits.insert(0, curr_commit)
+        elif line[0] == 'R':
+            v, f1, f2 = line.split('\t')
+            f1 = f1.strip()
+            f2 = f2.strip()
+            curr_commit.addFile(f1, u'\u2563')
+            curr_commit.addFile(f2, u'\u2560')
+            files.add(f1)
+            files.add(f2)
+        else:
+            v, f = line.split('\t', 2)
+            f = f.strip()
+            curr_commit.addFile(f, v)
+            files.add(f)
+    except:
+        print line
+        raise
+
+name_len = 0
+for f in files:
+    name_len = max(name_len, len(f))
+
+name_pattern = '%' + str(name_len) + 's'
+for f in sorted(files):
+    print name_pattern % f,
+    for c in commits:
+        s = c.files.get(f, ' ')
+        print s,
+    print
