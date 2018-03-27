@@ -1,5 +1,5 @@
 # This file is mostly from https://gist.githubusercontent.com/koraktor/525257/raw/b34266b760e8f2dda99188c1df1ee91e3dfedc6e/git.nanorc
-syntax "git commit/tag messages" "COMMIT_EDITMSG|TAG_EDITMSG"
+syntax "git-commit/tag-messages" "COMMIT_EDITMSG|TAG_EDITMSG"
 
 # Commit message
 # color white ".*"
@@ -24,7 +24,7 @@ color brightblack "#"
 color ,red "[[:space:]]+$"
 
 # This syntax format is used for interactive rebasing
-syntax "git rebase todo" "git-rebase-todo"
+syntax "git-rebase-todo" "git-rebase-todo"
 
 # Default
 # color white ".*"

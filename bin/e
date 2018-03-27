@@ -18,8 +18,8 @@ for argument in "$@"; do
     break;
   fi
 
-  if [  -x $HOME/bin/make-filename-relative ]; then
-    filename=`$HOME/bin/make-filename-relative "$filename"`
+  if [ -x $HOME/bin/make-filename-relative ]; then
+    filename=$( $HOME/bin/make-filename-relative "$filename" )
   fi
   relative_name=`echo "$filename" | sed 's_'$home_fixed'__' `
   FILE_ARG="&file=$relative_name"

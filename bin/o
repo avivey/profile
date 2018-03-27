@@ -8,8 +8,11 @@ fi
 home_fixed=`readlink -f $HOME`
 
 for argument in $*; do
-  file=`echo $argument | cut -f1 -d:`
-  relative_name=`readlink -f $file | sed 's_'$home_fixed'__'  | sed 's,/var/groupon/aviv/,,' `
+  filename=`echo $argument | cut -f1 -d:`
+  if [ -x $HOME/bin/make-filename-relative ]; then
+    filename=$( $HOME/bin/make-filename-relative "$filename" )
+  fi
+  relative_name=$( readlink -f $filename | sed 's_'$home_fixed'__' )
   FILE_ARG="$relative_name"
   send-url.sh "file:///$MOUNT_ROOT:$FILE_ARG"
 done

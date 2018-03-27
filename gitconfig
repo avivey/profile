@@ -38,6 +38,10 @@
 [push]
   default = upstream
 
+[pager]
+	log = diff-so-fancy | less
+	show = diff-so-fancy | less
+	diff = diff-so-fancy | less
 
 [tig]
   main-view-date = relative
