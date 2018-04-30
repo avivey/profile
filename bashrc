@@ -61,15 +61,18 @@ if  mysql --version | grep -q readline; then
   mysql_has_readline=yes
 fi 2>/dev/null
 
+PS1_TITLE_FORMAT='\u@\h: \w'
 MYSQL_PS1=$'mysql \h \d> '
 if [ "$color_prompt" = yes ]; then
     function prompt_command() {
       local ES=$?
+      local MAGIC_MARKER='\037'
       if [[ $ES -ne 0 ]]; then
         local ERRORPROMPT=" \[\033[1;30m\][ $ES ]"
+        local MAGIC_MARKER='\011'
       fi
       local GIT=$(__git_ps1 " %s")
-      PS1=$PS1_SET_TITLE'\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[0;31m\]'$GIT$ERRORPROMPT'\[\033[00m\]\$ '
+      PS1='\[\e]0;'$PS1_TITLE_FORMAT$MAGIC_MARKER'\a\]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[0;31m\]'$GIT$ERRORPROMPT'\[\033[00m\]\$ '
     }
     PROMPT_COMMAND=prompt_command
 
@@ -77,13 +80,12 @@ if [ "$color_prompt" = yes ]; then
       MYSQL_PS1=$'\001\033[0;31m\002mysql \001\033[1;32m\002\h \001\033[1;34m\002\d\001\033[00m\002> '
     fi
 else
-    PS1=$PS1_SET_TITLE'\u@\h:\w$(__git_ps1)\$ '
+    PS1='\[\e]0;'$PS1_TITLE_FORMAT'\a\]\u@\h:\w$(__git_ps1)\$ '
 fi
 
 case "$TERM" in
 # If this is an xterm set the title to user@host:dir
 xterm*|rxvt*)
-    PS1_SET_TITLE="\[\e]0;\u@\h: \w\a\]"
     if [ "$mysql_has_readline" = yes ]; then
       MYSQL_PS1=$'\001\e]0;mysql \h:\d\a\002'$MYSQL_PS1
     fi
@@ -140,7 +142,7 @@ export PATH=$PATH:~/profile/bin
 export BROWSER=send-url.sh
 
 export BLOCK_SIZE=human-readable
-export EDITOR=/usr/bin/nano
+export EDITOR=/bin/nano
 export INPUTRC=~/profile/inputrc
 . ~/profile/aliases
 

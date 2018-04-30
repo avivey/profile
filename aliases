@@ -1,3 +1,4 @@
+#! bash
 alias g=grep
 alias c=cat
 alias x=xargs
@@ -78,6 +79,7 @@ fi
 function set-title() {
   echo -ne "\e]2;$@\007"
 }
+alias blue="set-title blue '\036'; sleep 2;"
 function google() {
   $BROWSER https://www.google.com/search?q=$(python2 -c "import urllib; print urllib.quote('$*')")
 }
