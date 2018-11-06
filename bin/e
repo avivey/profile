@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ -z $MOUNT_ROOT ]; then
 	echo "No MOUNT_ROOT defined!"  >&2

@@ -59,15 +59,29 @@ function gen_passwd() {
 }
 
 function m() {
+  set-title Making "$@"... // $(pwd) '\036'
   if [ -x ./make.sh ]
   then
     ./make.sh $@
-  elif [ -e build.gradle ]
+    return
+  fi
+  if [ -e build.gradle ]
   then
     gradle $@
-  else
-    make $@
+    return
   fi
+  if [ -e Makefile ]
+  then
+    make $@
+    return
+  fi
+  if [ -e package.json ]
+  then
+    yarn $@
+    return
+  fi
+
+  make $@
 }
 
 if [ -f /usr/share/bash-completion/completions/make ]
@@ -79,7 +93,7 @@ fi
 function set-title() {
   echo -ne "\e]2;$@\007"
 }
-alias blue="set-title blue '\036'; sleep 2;"
+alias blue="set-title Working... '\036'"
 function google() {
   $BROWSER https://www.google.com/search?q=$(python2 -c "import urllib; print urllib.quote('$*')")
 }
