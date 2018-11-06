@@ -1,0 +1,6 @@
+
+git config --get branch.$(git rev-parse --abbrev-ref HEAD).mybase  || \
+git config --get aviv.default-base-branch || \
+git rev-parse --abbrev-ref --symbolic-full-name @{u} 2> /dev/null || \
+{ git show-ref -q origin/HEAD && echo origin/HEAD   ;} || \
+echo master
