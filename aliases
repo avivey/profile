@@ -9,7 +9,7 @@ alias clean='mvn clean -qq'
 alias less='less -R'
 alias json='python -m json.tool'
 
-alias cc='pygmentize -f256 -g'
+alias cc='pygmentize -f256 -g -O style=pastie'
 function show() {
   set-title "${!#}"
   cc $@ | less -N

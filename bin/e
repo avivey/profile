@@ -22,7 +22,8 @@ for argument in "$@"; do
   if [ -x $HOME/bin/make-filename-relative ]; then
     filename=$( $HOME/bin/make-filename-relative "$filename" )
   fi
-  relative_name=`echo "$filename" | sed 's_'$home_fixed'__' `
+  relative_name=$(echo "$filename" | sed 's_'$home_fixed'__' )
+  relative_name=$(echo $relative_name | sed 's/ /+/g' )
   FILE_ARG="&file=$relative_name"
   LINE_ARG=
   if [ -n "$line" ]; then
