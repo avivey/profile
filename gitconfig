@@ -15,7 +15,6 @@
 
   root = rev-parse --show-toplevel
 
-
 [log]
   decorate = short
 
@@ -46,3 +45,4 @@
   line-graphics = utf-8
   main-view-author = width=7
   blame-view-author = width=7
+  editor-line-number = false
