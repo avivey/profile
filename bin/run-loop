@@ -1,0 +1,27 @@
+#! /usr/bin/env bash
+
+GREEN='\037'
+RED='\011'
+BLUE='\036'
+
+set-title()
+{
+    echo -ne "\e]2;$@\007"
+}
+
+test -n "$*" || exit 3
+
+while true
+do
+  set-title "run-loop (working) $* $BLUE"
+  $*
+  if [[ $? -eq 0 ]]
+  then
+    echo '******************'
+    set-title "run-loop (good) $* $GREEN"
+  else
+    set-title "run-loop (bad) $* $RED"
+  fi
+  echo; echo; echo
+  inotifywait -e modify -r -q  */
+done
