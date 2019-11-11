@@ -23,5 +23,5 @@ do
     set-title "run-loop (bad) $* $RED"
   fi
   echo; echo; echo
-  inotifywait -e modify -r -q  */
+  inotifywait -e modify -r -q  *
 done
