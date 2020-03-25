@@ -24,4 +24,5 @@ do
   fi
   echo; echo; echo
   inotifywait -e modify -r -q  *
+  sleep 0.1
 done
