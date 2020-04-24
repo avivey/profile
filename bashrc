@@ -128,7 +128,7 @@ if ! shopt -oq posix; then
 
   if [ -d ~/devtools/arcanist/support/shell ]; then
     # post-2020 arc
-    . /home/avive/devtools/arcanist/support/shell/hooks/bash-completion.sh
+    . ~/devtools/arcanist/support/shell/hooks/bash-completion.sh
   fi
 
   if [ -d ~/devtools/git/contrib/completion ]; then
