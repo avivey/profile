@@ -148,7 +148,7 @@ export PATH=$PATH:~/profile/bin
 export BROWSER=send-url.sh
 
 export BLOCK_SIZE=human-readable
-export EDITOR=/bin/nano
+export EDITOR=blocking-editor
 export INPUTRC=~/profile/inputrc
 . ~/profile/aliases
 
