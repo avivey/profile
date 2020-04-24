@@ -21,6 +21,9 @@
 [color]
 	ui = auto
 
+[notes]
+	rewriteRef = refs/notes/commits
+
 [color "branch"]
   current = red
   local = bold
@@ -46,3 +49,4 @@
   main-view-author = width=7
   blame-view-author = width=7
   editor-line-number = false
+  ignore-space = all
