@@ -1,10 +1,12 @@
 <job><script language=JScript>
 // url is editor://open/?repo=%r&file=%f&line=%l
-// repo may be replaced with root (Drive root)
+// `repo` may be replaced with `root` (Drive letter)
+// or with `remote` (SSH name, for vscode)
 // %f ==unix filename
 
+// TODO vscode supports dirs.
 
-var editor = '"C:/Program Files (x86)/Notepad++/notepad++.exe" -n%line% %file%';
+var editor = '"C:/Users/Aviv/AppData/Local/Programs/Microsoft VS Code/code.exe" --goto %line% %file%:%line%';
 var repo = false;
 var root = false;
 var files = false;
@@ -22,13 +24,16 @@ for (var i=0; i<query.length; i++) {
 			repo = value;
 			break;
 		case "root":
-			root = value;
+			root = value + ':';
 			break;
 		case "file":
 			files = value;
 			break;
 		case "line":
 			line = value;
+			break;
+		case "remote":
+			root = '--file-uri vscode-remote://ssh-remote+' + value;
 			break;
 	}
 }
@@ -37,7 +42,7 @@ var base = "";
 if (repo) {
 	base = "v:/by-repo/" + repo + "/";
 } else if (root) {
-	base = root + ":/";
+	base = root;
 }
 
 if (!files || !base) {
