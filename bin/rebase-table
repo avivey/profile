@@ -4,53 +4,171 @@
 # Useful for rebasing feature branch into reasonable commits.
 # usage:
 # git log --name-status --oneline origin/master..  | $0
+# git log --name-status --oneline origin/master..  | $0 --html > file.html
 
-# Can also be found at https://secure.phabricator.com/P1998
+# A variant can also be found at https://secure.phabricator.com/P1998
 
-import fileinput
+import argparse
+import sys
 
-files = set()
-commits = list()
+args_parser = None
 
-class Commit(object):
-    def __init__(self, title):
-        self.title = title
-        self.files = dict()
 
-    def addFile(self, filename, status):
-        self.files[filename] = status
+def parse_args():
+    global args_parser
+    usage = \
+        '''git log --name-status --oneline origin/master.. | %(prog)s --html > file.html
+       git log --name-status --oneline origin/master.. | %(prog)s
+'''
+    args_parser = argparse.ArgumentParser(
+            description='Show nice table to assist cleaning up git commits.',
+            usage=usage,
+            )
 
-curr_commit = None
-for line in fileinput.input():
-    try:
-        if line[0] in '0123456789abcdef':
-            curr_commit = Commit(line)
-            commits.insert(0, curr_commit)
-        elif line[0] == 'R':
-            v, f1, f2 = line.split('\t')
-            f1 = f1.strip()
-            f2 = f2.strip()
-            curr_commit.addFile(f1, '\u2563')
-            curr_commit.addFile(f2, '\u2560')
-            files.add(f1)
-            files.add(f2)
-        else:
-            v, f = line.split('\t', 2)
-            f = f.strip()
-            curr_commit.addFile(f, v)
-            files.add(f)
-    except:
-        print(line)
-        raise
+    args_parser.add_argument('-H', '--html', dest='mode', action='store_const',
+                             const='html', default='text',
+                             help='Output formatted HTML table')
+    args_parser.add_argument('-t', '-T', '--text', dest='mode',
+                             action='store_const',
+                             const='text', default='text',
+                             help='Output plain-text table')
 
-name_len = 0
-for f in files:
-    name_len = max(name_len, len(f))
+    return args_parser.parse_args()
 
-name_pattern = '%' + str(name_len) + 's'
-for f in sorted(files):
-    print(name_pattern % f, end=' ')
+def collect_data():
+    files = set()
+    commits = list()
+
+    class Commit(object):
+        def __init__(self, title):
+            self.title = title
+            self.files = dict()
+
+        def addFile(self, filename, status):
+            self.files[filename] = status
+
+    curr_commit = None
+    for line in sys.stdin:
+        try:
+            if line[0] in '0123456789abcdef':
+                curr_commit = Commit(line)
+                commits.insert(0, curr_commit)
+            elif line[0] == 'R':
+                v, f1, f2 = line.split('\t')
+                f1 = f1.strip()
+                f2 = f2.strip()
+                curr_commit.addFile(f1, '\u2563')
+                curr_commit.addFile(f2, '\u2560')
+                files.add(f1)
+                files.add(f2)
+            else:
+                v, f = line.split('\t', 2)
+                f = f.strip()
+                curr_commit.addFile(f, v)
+                files.add(f)
+        except:
+            print(line)
+            raise
+    return commits, files
+
+
+def output_html(commits, files):
+    if sys.stdout.isatty():
+        print("Output is set to html, redirect this to file.")
+        sys.exit(4)
+
+    CSS = '''
+    td {
+    border: 1px solid black;
+    }
+    table {
+    border-collapse: collapse;
+    }
+
+    td:nth-child(even),
+    th.rotate:nth-child(even) > div > span {
+    background: #CCC
+    }
+
+    th.rotate {
+        height: 350px;
+    }
+    th.rotate > div {
+    transform:
+        translate(20px, 164px)
+        rotate(315deg);
+    transform-origin: left;
+    width: 30px;
+    white-space: nowrap;
+    }
+    th.rotate > div > span {
+    border-bottom: 1px solid black;
+    padding: 5px 0;
+    }
+    tbody th {
+        text-align: right;
+    }
+    tbody td {
+        text-align: center;
+    }
+    '''
+
+    print('<html><head><style>')
+    print(CSS)
+    print('</style></head>')
+    print('''
+    <body>
+    <table>
+    <colgroup>''')
+    print('<col>')
+    print(len(commits) * '<col>')
+    print('''</colgroup>
+    <thead><tr>
+    <th></th>
+    ''')
     for c in commits:
-        s = c.files.get(f, ' ')
-        print(s, end=' ')
-    print()
+        print('<th class="rotate"><div><span>')
+        print(c.title)
+        print('</span></div></th>')
+    print('</tr> </thead><tbody>')
+
+    for f in sorted(files):
+        print('<tr>')
+        print('<th>%s</th>' % f, end='')
+        for c in commits:
+            s = c.files.get(f, ' ')
+            print('<td>%s</td>' % s, end='')
+        print('</tr>')
+
+    print('</tbody></table></html>')
+
+def output_text(commits, files):
+    name_len = 0
+    for f in files:
+        name_len = max(name_len, len(f))
+
+    name_pattern = '%' + str(name_len) + 's'
+    for f in sorted(files):
+        print(name_pattern % f, end=' ')
+        for c in commits:
+            s = c.files.get(f, ' ')
+            print(s, end=' ')
+        print()
+
+
+args = parse_args()
+
+if sys.stdin.isatty():
+    print("\n\t\tstdin is tty, not processing.\n")
+    args_parser.print_help()
+    sys.exit(1)
+
+commits, files = collect_data()
+if args.mode == 'text':
+    output_text(commits, files)
+elif args.mode == 'html':
+    output_html(commits, files)
+else:
+    print("500 Internal Server Error")
+    args_parser.print_help()
+    sys.exit(3)
