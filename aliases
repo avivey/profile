@@ -3,8 +3,7 @@ alias g=grep
 alias c=cat
 alias x=xargs
 alias b='arc browse'
-
-alias clean='mvn clean -qq'
+alias +x='chmod +x'
 
 alias less='less -R'
 alias json='python -m json.tool'

@@ -17,9 +17,10 @@ do
   $*
   if [[ $? -eq 0 ]]
   then
-    echo '******************'
+    echo -e '\033[42m******************\033[0m'
     set-title "run-loop (good) $* $GREEN"
   else
+    echo -e '\033[41m******************\033[0m'
     set-title "run-loop (bad) $* $RED"
   fi
   echo; echo; echo
