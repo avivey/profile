@@ -9,12 +9,26 @@ set-title()
     echo -ne "\e]2;$@\007"
 }
 
-test -n "$*" || exit 3
+FILES_TO_WATCH='*'
+if [[ "$*" == *"--"* ]]
+then
+    FILES_TO_WATCH=''
+    while [[ "$1" != "--" && "$1" != "" ]]
+    do
+        FILES_TO_WATCH+=" $1"
+        shift
+    done
+fi
+[[ "$1" == '--' ]] && shift
+COMMAND="$*"
+
+test -n "$COMMAND" || exit 3
+
 
 while true
 do
   set-title "run-loop (working) $* $BLUE"
-  $*
+  $COMMAND
   if [[ $? -eq 0 ]]
   then
     echo -e '\033[42m******************\033[0m'
@@ -24,6 +38,6 @@ do
     set-title "run-loop (bad) $* $RED"
   fi
   echo; echo; echo
-  inotifywait -e modify -r -q  *
+  inotifywait -e modify -r -q  $FILES_TO_WATCH
   sleep 0.1
 done
