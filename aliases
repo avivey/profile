@@ -6,7 +6,7 @@ alias b='arc browse'
 alias +x='chmod +x'
 
 alias less='less -R'
-alias json='python -m json.tool'
+alias json='python3 -m json.tool'
 
 alias cc='pygmentize -f256 -g -O style=pastie'
 function show() {
@@ -21,7 +21,7 @@ alias scp='scp -C'
 alias ..='cd ..'
 alias cd..='cd ..'
 
-alias root='cd `git root`'
+alias cdgroot='cd `git root`'
 
 alias br='git br'
 alias st='git st'
