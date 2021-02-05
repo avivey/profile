@@ -1,7 +1,7 @@
 #! bash
 alias g=grep
 alias c=cat
-alias x=xargs
+alias x='xargs -r'
 alias b='arc browse'
 alias +x='chmod +x'
 
@@ -32,6 +32,7 @@ alias l='git l'
 alias gg='git grep -In'
 function gge() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs e; }
 function ggb() { git grep -n "$@" | grep -o '^[^:]\{1,\}:[0-9]*' | xargs arc browse --; }
+function ggs() { show $(git grep -l "$@" | head -1 ); }
 alias gf='git ls-files'
 alias gfc='git ls-files | xargs ls -d1 --color'
 alias gfg='git ls-files | grep'
@@ -77,6 +78,11 @@ function m() {
   if [ -e package.json ]
   then
     yarn $@
+    return
+  fi
+  if [ -e pom.xml ]
+  then
+    mvn $@
     return
   fi
 
