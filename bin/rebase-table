@@ -143,16 +143,22 @@ def output_html(commits, files):
     print('</tbody></table></html>')
 
 def output_text(commits, files):
-    name_len = 0
-    for f in files:
-        name_len = max(name_len, len(f))
+    name_len = max(len(f) for f in files)
 
     name_pattern = '%' + str(name_len) + 's'
+
+    # Print header with commit hashes
+    print(name_pattern % '', end=' ')
+    for c in commits:
+        print(c.title[:5], end=' ')
+    print()
+
+
     for f in sorted(files):
         print(name_pattern % f, end=' ')
         for c in commits:
             s = c.files.get(f, ' ')
-            print(s, end=' ')
+            print(f'  {s}  ', end=' ')
         print()
 
 
