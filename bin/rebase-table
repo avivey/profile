@@ -11,11 +11,8 @@
 import argparse
 import sys
 
-args_parser = None
-
 
 def parse_args():
-    global args_parser
     usage = \
         '''git log --name-status --oneline origin/master.. | %(prog)s --html > file.html
        git log --name-status --oneline origin/master.. | %(prog)s
@@ -33,7 +30,7 @@ def parse_args():
                              const='text', default='text',
                              help='Output plain-text table')
 
-    return args_parser.parse_args()
+    return args_parser, args_parser.parse_args()
 
 def collect_data():
     files = set()
@@ -162,7 +159,7 @@ def output_text(commits, files):
         print()
 
 
-args = parse_args()
+args_parser, args = parse_args()
 
 if sys.stdin.isatty():
     print("\n\t\tstdin is tty, not processing.\n")
