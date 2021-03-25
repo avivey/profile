@@ -4,11 +4,6 @@ GREEN='\037'
 RED='\011'
 BLUE='\036'
 
-set-title()
-{
-    echo -ne "\e]2;$@\007"
-}
-
 FILES_TO_WATCH='*'
 if [[ "$*" == *"--"* ]]
 then

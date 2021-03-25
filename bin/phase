@@ -1,2 +1,2 @@
-echo -ne "\e]2;$*\036\007"
+set-title "$*"
 echo $*

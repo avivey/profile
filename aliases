@@ -52,7 +52,6 @@ fi
 function highlight() {
   egrep --color "$*|"
 }
-alias h=highlight
 
 function gen_passwd() {
   tr -dc _A-Za-z0-9 < /dev/urandom | head -c${1:-10} | xargs
@@ -95,10 +94,6 @@ then
   complete -F _make m
 fi
 
-function set-title() {
-  echo -ne "\e]2;$*\007"
-}
-alias blue="set-title Working... '\036'"
 function google() {
   $BROWSER https://www.google.com/search?q=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$*'))")
 }
