@@ -1,0 +1,26 @@
+#! /usr/bin/env bash
+
+set-title k "$@" '\036';
+
+case "$1" in
+    exec | logs | port-forward | run  )
+        kubectl $@
+        exit
+        ;;
+
+    ns  )
+        kubectl config view --minify --output 'jsonpath={..namespace}'; echo
+        exit
+        ;;
+
+    set-ns  )
+        kubectl config set-context --current --namespace="$2"
+        exit
+        ;;
+
+    desc    )
+        shift
+        set -- describe $@
+        ;;
+esac
+kubectl $@ | less -Fi

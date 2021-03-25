@@ -94,6 +94,9 @@ then
   complete -F _make m
 fi
 
+type -t __start_kubectl > /dev/null && complete -F __start_kubectl k
+complete -F _command x
+
 function google() {
   $BROWSER https://www.google.com/search?q=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$*'))")
 }
