@@ -2,14 +2,14 @@
 set -e
 
 function find_soc() {
-    SOCKET_TEMPLATE=/run/user/1000/vscode-ipc-
+    SOCKET_TEMPLATE="${XDG_RUNTIME_DIR-/tmp}"/vscode-ipc-
     lsof $SOCKET_TEMPLATE* 2> /dev/null | grep -m 1 -o $SOCKET_TEMPLATE'\S*.sock'
 }
 
 function find_exe() {
     SOCKET=$1
 
-    pid=$(lsof -Fp $SOCKET | grep -m 1 ^p | grep -o [0-9]* )
+    pid=$(lsof -Fp $SOCKET | grep -m 1 '^p' | grep -o '[0-9]*' )
 
     codedir=$(readlink /proc/$pid/exe | xargs dirname)
 
