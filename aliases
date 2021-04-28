@@ -42,11 +42,14 @@ function gfgc() { git ls-files | grep "$@" | xargs classname; }
 function gfgs() { show $(git ls-files | grep "$@" | head -1); }
 alias blame='tig blame'
 
+alias httpd='busybox httpd -f -p 8080'
+
 if declare -f __git_complete >/dev/null
 then
   __git_complete br _git_branch
   __git_complete f _git_fetch
   __git_complete gg _git_grep
+  __git_complete st _git_status
 fi
 
 function highlight() {

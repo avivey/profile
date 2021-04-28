@@ -76,31 +76,30 @@ def output_html(commits, files):
 
     CSS = '''
     td {
-    border: 1px solid black;
+        border: 1px solid black;
     }
     table {
-    border-collapse: collapse;
+        border-collapse: collapse;
     }
 
     td:nth-child(even),
     th.rotate:nth-child(even) > div > span {
-    background: #CCC
+        background: #CCC
     }
-
     th.rotate {
         height: 350px;
     }
     th.rotate > div {
-    transform:
-        translate(20px, 164px)
-        rotate(315deg);
-    transform-origin: left;
-    width: 30px;
-    white-space: nowrap;
+        transform:
+            translate(20px, 164px)
+            rotate(315deg);
+        transform-origin: left;
+        width: 30px;
+        white-space: nowrap;
     }
     th.rotate > div > span {
-    border-bottom: 1px solid black;
-    padding: 5px 0;
+        border-bottom: 1px solid black;
+        padding: 5px 0;
     }
     tbody th {
         text-align: right;
@@ -110,9 +109,9 @@ def output_html(commits, files):
     }
     '''
 
-    print('<html><head><style>')
+    print('<!DOCTYPE html><html><head><style>')
     print(CSS)
-    print('</style></head>')
+    print('</style><title>Rebase table</title></head>')
     print('''
     <body>
     <table>
