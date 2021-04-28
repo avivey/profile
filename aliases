@@ -50,7 +50,7 @@ then
 fi
 
 function highlight() {
-  egrep --color "$*|"
+  GREP_COLORS='mt=01;35' egrep --color=always "$*|"
 }
 
 function gen_passwd() {
@@ -96,6 +96,8 @@ fi
 
 type -t __start_kubectl > /dev/null && complete -F __start_kubectl k
 complete -F _command x
+
+alias blue="set-title Working... '\036'"
 
 function google() {
   $BROWSER https://www.google.com/search?q=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$*'))")

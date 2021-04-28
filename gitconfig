@@ -21,11 +21,15 @@
 [log]
   decorate = short
 
+[notes]
+	rewriteRef = refs/notes/commits
+
 [color]
 	ui = auto
 
-[notes]
-	rewriteRef = refs/notes/commits
+[color "grep"]
+    linenumber = yellow bold
+    filename = magenta
 
 [color "branch"]
   current = red
