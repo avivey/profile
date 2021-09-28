@@ -41,6 +41,9 @@ else
   color_prompt=
 fi
 
+# Disable CONTROL-S CONTROL-Q for flow control
+stty -ixon
+
 # in case we can't find it later
 declare -F __git_ps1 >/dev/null || function __git_ps1() { true; }
 
