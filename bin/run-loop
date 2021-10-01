@@ -32,7 +32,7 @@ do
     echo -e '\033[41m******************\033[0m'
     set-title "run-loop (bad) $* $RED"
   fi
-  echo; echo; echo
+  echo
   inotifywait -e modify -r -q  $FILES_TO_WATCH
   sleep 0.1
 done
