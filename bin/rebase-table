@@ -44,7 +44,7 @@ def collect_data():
         def addFile(self, filename, status):
             self.files[filename] = status
 
-    curr_commit = None
+    curr_commit = Commit("--dummy--")
     for line in sys.stdin:
         try:
             if line[0] in '0123456789abcdef':
@@ -68,6 +68,12 @@ def collect_data():
             raise
     return commits, files
 
+def html_encode(char):
+    encoded = {
+        '\u2563': '&boxVL;',
+        '\u2560': '&boxVR;',
+    }
+    return encoded.get(char, char)
 
 def output_html(commits, files):
     if sys.stdout.isatty():
@@ -80,6 +86,9 @@ def output_html(commits, files):
     }
     table {
         border-collapse: collapse;
+    }
+    tr:hover {
+        background-color: salmon;
     }
 
     td:nth-child(even),
@@ -133,6 +142,7 @@ def output_html(commits, files):
         print('<th>%s</th>' % f, end='')
         for c in commits:
             s = c.files.get(f, ' ')
+            s = html_encode(s)
             print('<td>%s</td>' % s, end='')
         print('</tr>')
 
