@@ -13,10 +13,12 @@ function find_exe() {
 
     codedir=$(readlink /proc/$pid/exe | xargs dirname)
 
-    echo $codedir/bin/code
+    echo $codedir/bin/remote-cli/code
 }
 
 SOCKET=$(find_soc)
+
+set -o pipefail
 CODE_BIN=$(find_exe $SOCKET)
 
 VSCODE_IPC_HOOK_CLI=$SOCKET $CODE_BIN $*
