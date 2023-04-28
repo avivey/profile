@@ -3,7 +3,8 @@
 set-title k "$@" '\036';
 
 case "$1" in
-    exec | logs | port-forward | run  )
+    exec | port-forward | run | edit | delete )
+        # TODO also for get --watch: `wait -f` waits for first screen to arrive.
         kubectl $@
         exit
         ;;
@@ -13,8 +14,27 @@ case "$1" in
         exit
         ;;
 
-    set-ns  )
+    set-ns | use-ns )
         kubectl config set-context --current --namespace="$2"
+        exit
+        ;;
+
+    watch   )
+        shift
+        set -- get -- watch $@
+        kubectl $@
+        exit
+        ;;
+
+    events  )
+        shift # `events`
+        object_name="$1"
+        shift
+        set -- get events --sort-by=.metadata.creationTimestamp --field-selector involvedObject.mame="$object_name" $@
+        ;;
+
+    shell   )
+        kubectl exec -ti $2 -- bash
         exit
         ;;
 
@@ -23,4 +43,13 @@ case "$1" in
         set -- describe $@
         ;;
 esac
-kubectl $@ | less -Fi
+
+
+if tty -s </dev/fd/1
+then
+    # only add pager if tty
+    kubectl $@ | less -Fi
+else
+    kubectl $@
+fi
+
