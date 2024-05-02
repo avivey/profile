@@ -82,39 +82,65 @@ def output_html(commits, files):
 
     CSS = '''
     td {
-        border: 1px solid black;
+    	border: 1px solid black;
     }
+    
     table {
-        border-collapse: collapse;
+    	border-collapse: collapse;
+    	overflow: hidden;
+    
     }
-    tr:hover {
-        background-color: salmon;
+    
+    tbody td:hover,
+    tbody tr:hover {
+    	background-color: salmon;
     }
-
+    
     td:nth-child(even),
-    th.rotate:nth-child(even) > div > span {
-        background: #CCC
+    th.rotate:nth-child(even)>div>span {
+    	background: #CCC8
     }
+    
     th.rotate {
-        height: 350px;
+    	height: 350px;
     }
-    th.rotate > div {
-        transform:
-            translate(20px, 164px)
-            rotate(315deg);
-        transform-origin: left;
-        width: 30px;
-        white-space: nowrap;
+    
+    th.rotate>div {
+    	transform:
+    		translate(20px, 164px) rotate(315deg);
+    	transform-origin: left;
+    	width: 30px;
+    	white-space: nowrap;
     }
-    th.rotate > div > span {
-        border-bottom: 1px solid black;
-        padding: 5px 0;
+    
+    th.rotate>div>span {
+    	border-bottom: 1px solid black;
+    	padding: 5px 0;
     }
+    
     tbody th {
-        text-align: right;
+    	text-align: right;
     }
+    
     tbody td {
-        text-align: center;
+    	text-align: center;
+    }
+    
+    td,
+    th {
+    	position: relative;
+    }
+    
+    td:hover::after,
+    th:hover::after {
+    	content: "";
+    	position: absolute;
+    	background-color: salmon;
+    	left: 0;
+    	top: -5000px;
+    	height: 10000px;
+    	width: 100%;
+    	z-index: -1;
     }
     '''
 
