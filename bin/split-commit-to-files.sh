@@ -9,7 +9,7 @@ git diff --quiet HEAD
 echo Breaking apart this commit:
 git log -1 --oneline --no-decorate
 
-FILES=$(git show --name-only --no-decorate --foramt='' HEAD)
+FILES=$(git show --name-only --no-decorate --format='' HEAD)
 MESSAGE=$(git log --oneline --no-decorate -1)
 BASE_HASH=$(git log -1 --format=%H)
 
